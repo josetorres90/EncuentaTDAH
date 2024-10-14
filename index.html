@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta TDAH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.unida.edu.py/v4/wp-content/uploads/2024/07/Facultad-de-Salud-1024x1024.png'); /* Nueva imagen de fondo */
+            background-size: cover; /* Hace que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con transparencia */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #007bff; /* Línea de color azul a la izquierda */
+        }
+        h1 {
+            text-align: center;
+            color: #007bff; /* Azul médico */
+            font-weight: 700;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f7f9fc; /* Fondo gris suave para las preguntas */
+            border-radius: 8px;
+        }
+        .question label {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .question input[type="radio"] {
+            margin-right: 10px;
+        }
+        #submitBtn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745; /* Verde */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 20px;
+            transition: background-color 0.3s; /* Efecto de transición */
+        }
+        #submitBtn:hover {
+            background-color: #218838; /* Verde oscuro al pasar el ratón */
+        }
+        /* Estilos para la página de carga del porcentaje */
+        .loading {
+            display: none; /* Oculto por defecto */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://pbs.twimg.com/profile_images/2492435414/qcktfgi66mjweqw0gmw0_400x400.png'); /* Imagen de carga */
+            background-size: cover; /* Asegura que la imagen cubra el área */
+            background-position: center; /* Centra la imagen */
+        }
+        .introduction {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Encuesta TDAH</h1>
+        <div class="introduction">
+            <h2>¿Qué es el TDAH?</h2>
+            <p>El Trastorno por Déficit de Atención e Hiperactividad (TDAH) es un trastorno neurobiológico del desarrollo que se caracteriza por la dificultad para prestar atención, la hiperactividad y la impulsividad. Este trastorno puede afectar a niños y adultos, y sus síntomas pueden impactar la vida diaria, el rendimiento académico y las relaciones interpersonales.</p>
+            <p>Si crees que puedes tener síntomas de TDAH, por favor completa la siguiente encuesta para obtener una estimación de tu porcentaje de síntomas.</p>
+            <button id="nextBtn" onclick="showSurvey()">Siguiente</button>
+        </div>
+        <form id="surveyForm" style="display: none;">
+            <!-- Preguntas -->
+            <div class="question">
+                <label>1. ¿Te resulta difícil concentrarte durante un largo período de tiempo?</label>
+                <input type="radio" name="q1" value="1"> Sí
+                <input type="radio" name="q1" value="0"> No
+            </div>
+            <div class="question">
+                <label>2. ¿Sueles ser impulsivo(a) en tus decisiones?</label>
+                <input type="radio" name="q2" value="1"> Sí
+                <input type="radio" name="q2" value="0"> No
+            </div>
+            <div class="question">
+                <label>3. ¿Te resulta difícil organizar tareas y actividades?</label>
+                <input type="radio" name="q3" value="1"> Sí
+                <input type="radio" name="q3" value="0"> No
+            </div>
+            <div class="question">
+                <label>4. ¿Tienes dificultad para mantener la atención en tareas aburridas o repetitivas?</label>
+                <input type="radio" name="q4" value="1"> Sí
+                <input type="radio" name="q4" value="0"> No
+            </div>
+            <div class="question">
+                <label>5. ¿Te distraes fácilmente con estímulos irrelevantes o ruidos?</label>
+                <input type="radio" name="q5" value="1"> Sí
+                <input type="radio" name="q5" value="0"> No
+            </div>
+            <div class="question">
+                <label>6. ¿Olvidas realizar tareas cotidianas, como pagar cuentas o devolver llamadas?</label>
+                <input type="radio" name="q6" value="1"> Sí
+                <input type="radio" name="q6" value="0"> No
+            </div>
+            <div class="question">
+                <label>7. ¿A menudo pierdes cosas necesarias para tareas o actividades?</label>
+                <input type="radio" name="q7" value="1"> Sí
+                <input type="radio" name="q7" value="0"> No
+            </div>
+            <div class="question">
+                <label>8. ¿Te resulta difícil seguir instrucciones y completar tareas?</label>
+                <input type="radio" name="q8" value="1"> Sí
+                <input type="radio" name="q8" value="0"> No
+            </div>
+            <div class="question">
+                <label>9. ¿Sientes que siempre estás en movimiento, como si tuvieras un motor interno?</label>
+                <input type="radio" name="q9" value="1"> Sí
+                <input type="radio" name="q9" value="0"> No
+            </div>
+            <div class="question">
+                <label>10. ¿Hablas en exceso o interrumpes a los demás cuando están hablando?</label>
+                <input type="radio" name="q10" value="1"> Sí
+                <input type="radio" name="q10" value="0"> No
+            </div>
+            <div class="question">
+                <label>11. ¿Sientes que te cuesta esperar tu turno en situaciones sociales?</label>
+                <input type="radio" name="q11" value="1"> Sí
+                <input type="radio" name="q11" value="0"> No
+            </div>
+            <div class="question">
+                <label>12. ¿Tiendes a perder la paciencia rápidamente cuando algo no va según lo planeado?</label>
+                <input type="radio" name="q12" value="1"> Sí
+                <input type="radio" name="q12" value="0"> No
+            </div>
+            <div class="question">
+                <label>13. ¿Sientes que te cuesta permanecer en silencio o tranquilo en situaciones que lo requieren?</label>
+                <input type="radio" name="q13" value="1"> Sí
+                <input type="radio" name="q13" value="0"> No
+            </div>
+            <div class="question">
+                <label>14. ¿A menudo tienes problemas para planificar y organizar actividades?</label>
+                <input type="radio" name="q14" value="1"> Sí
+                <input type="radio" name="q14" value="0"> No
+            </div>
+            <div class="question">
+                <label>15. ¿Tiendes a tener dificultades en la escuela o el trabajo debido a tu nivel de atención?</label>
+                <input type="radio" name="q15" value="1"> Sí
+                <input type="radio" name="q15" value="0"> No
+            </div>
+            <div class="question">
+                <label>16. ¿Sientes que tu mente a menudo se distrae o se escapa de la tarea en la que estás?</label>
+                <input type="radio" name="q16" value="1"> Sí
+                <input type="radio" name="q16" value="0"> No
+            </div>
+            <div class="question">
+                <label>17. ¿A menudo te sientes inquieto(a) o incapaz de relajarte?</label>
+                <input type="radio" name="q17" value="1"> Sí
+                <input type="radio" name="q17" value="0"> No
+            </div>
+            <div class="question">
+                <label>18. ¿Tienes problemas para organizar tu tiempo y cumplir con los plazos?</label>
+                <input type="radio" name="q18" value="1"> Sí
+                <input type="radio" name="q18" value="0"> No
+            </div>
+            <div class="question">
+                <label>19. ¿Te resulta difícil mantener la motivación para realizar tareas?</label>
+                <input type="radio" name="q19" value="1"> Sí
+                <input type="radio" name="q19" value="0"> No
+            </div>
+            <div class="question">
+                <label>20. ¿Te resulta difícil recordar citas y eventos importantes?</label>
+                <input type="radio" name="q20" value="1"> Sí
+                <input type="radio" name="q20" value="0"> No
+            </div>
+            <button type="button" id="submitBtn" onclick="calculateScore()">Siguiente</button>
+        </form>
+    </div>
+
+    <div class="loading" id="loading" style="display: none;">
+        <h1>Calculando tu porcentaje...</h1>
+    </div>
+
+    <script>
+        function showSurvey() {
+            document.querySelector('.introduction').style.display = 'none'; // Oculta la introducción
+            document.getElementById('surveyForm').style.display = 'block'; // Muestra el formulario de la encuesta
+        }
+
+        function calculateScore() {
+            const form = document.getElementById('surveyForm');
+            let score = 0;
+            for (let i = 1; i <= 20; i++) {
+                const question = form[`q${i}`];
+                if (question) {
+                    for (let j = 0; j < question.length; j++) {
+                        if (question[j].checked) {
+                            score += parseInt(question[j].value);
+                        }
+                    }
+                }
+            }
+            const percentage = (score / 20) * 100; // Calcula el porcentaje
+
+            // Almacena el porcentaje en localStorage
+            localStorage.setItem('tdahPercentage', percentage.toFixed(2));
+
+            // Muestra la página de carga
+            document.getElementById('loading').style.display = 'flex';
+            setTimeout(() => {
+                window.location.href = 'loading.html'; // Redirige a la página de carga
+            }, 2000); // Espera 2 segundos antes de redirigir
+        }
+    </script>
+</body>
+</html>

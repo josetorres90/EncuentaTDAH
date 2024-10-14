@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargando...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            background-image: url('https://www.unida.edu.py/v4/wp-content/uploads/2024/07/Facultad-de-Salud-1024x1024.png'); /* Nueva imagen de fondo */
+            background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-position: center; /* Centra la imagen en la pantalla */
+        }
+        .loader {
+            font-size: 1.5em; /* Tamaño de fuente ajustado */
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente para mayor legibilidad */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            border: 5px solid #007bff; /* Borde celeste */
+            position: relative;
+            width: 350px; /* Ajusta el ancho del contenedor */
+        }
+        .percentage-rectangle {
+            width: 90%; /* Ancho del rectángulo */
+            height: 60px; /* Alto del rectángulo */
+            border: 5px solid #007bff; /* Color del borde */
+            border-radius: 10px; /* Bordes redondeados */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px auto; /* Centra el rectángulo */
+            font-size: 1.5em; /* Tamaño de texto ajustado */
+            color: #007bff; /* Color del texto */
+            background-color: white; /* Fondo blanco para el rectángulo */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        .treatment-suggestion {
+            margin-top: 10px; /* Espaciado reducido */
+            font-size: 0.9em; /* Tamaño de fuente más pequeño */
+            color: #555;
+            text-align: left; /* Alineación a la izquierda */
+        }
+        .quote {
+            border-left: 3px solid #007bff; /* Borde celeste a la izquierda */
+            padding-left: 10px; /* Espacio entre el borde y el texto */
+            margin: 5px 0; /* Espaciado entre citas */
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745; /* Verde */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Espaciado superior */
+        }
+        button:hover {
+            background-color: #218838; /* Verde oscuro al pasar el ratón */
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <p>Cargando...</p>
+        <p id="progress"></p>
+    </div>
+
+    <script>
+        let progress = 0;
+        const loadingText = document.getElementById('progress');
+
+        const interval = setInterval(() => {
+            if (progress < 100) {
+                progress += 5; // Incrementa el progreso
+                loadingText.innerText = 'Cálculo: ' + progress + '%';
+            } else {
+                clearInterval(interval); // Detiene el intervalo
+                displayResult(); // Llama a la función que muestra el resultado
+            }
+        }, 200); // Cambia este número para ajustar la velocidad
+
+        function displayResult() {
+            const percentage = localStorage.getItem('tdahPercentage'); // Recupera el porcentaje almacenado
+            document.body.innerHTML = `
+                <div class="loader">
+                    <h1>Resultado</h1>
+                    <div class="percentage-rectangle">${percentage}%</div>
+                    <p>Tu porcentaje estimado de síntomas de TDAH es: ${percentage}%</p>
+                    <div class="treatment-suggestion">
+                        <p>Recomendaciones para tratar y resolver el TDAH:</p>
+                        <div class="quote">Consulta con un profesional de la salud mental.</div>
+                        <div class="quote">Considera la terapia cognitivo-conductual.</div>
+                        <div class="quote">Implementa técnicas de manejo del tiempo y organización.</div>
+                        <div class="quote">Ejercicio regular y una dieta equilibrada pueden ayudar.</div>
+                    </div>
+                    <button onclick="window.location.href='index.html'">Volver a la encuesta</button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
